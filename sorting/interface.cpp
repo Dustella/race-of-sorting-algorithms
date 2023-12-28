@@ -24,16 +24,20 @@ class SortingAlgorithm {
 
  public:
   void excute() {
+    
     auto target = this->sampleData;
     for (auto singleSample : target) {
       LARGE_INTEGER t1, t2;
 
       vector<int> res(singleSample.begin(), singleSample.end());
       QueryPerformanceCounter(&t1);
+//        int begin   = clock();
       this->sort(res);
       QueryPerformanceCounter(&t2);
+//        int end     = clock();
       int duration = t2.QuadPart - t1.QuadPart;
 
+//        int duration = end - begin;
       this->timeMapping.insert(make_pair(res.size(), duration));
       cout << this->name << ": " << res.size() << ", Time Used: " << duration
            << "s" << endl;
@@ -80,7 +84,7 @@ class SortingAlgorithm {
     string path = "report/";
     path.append(this->name);
     path.append(".txt");
-    cout << "生成报告 位置 " << path << endl;
+    cout << "Writing " << path << endl;
 
     ofstream out(path);
 
